@@ -13,19 +13,37 @@
 <body>
     <!-- HTML -->
     <div class="blank"></div>
-    <div id="header"><span id="title">Ascol57</span>
-    <span id="subtitle">Développeur frontend</span></div>
+
+    <div id="header">
+        <span id="title">Ascol57</span>
+        <span id="subtitle">Développeur frontend</span>
+    </div>
+
+    <div id="section1">
+        <span id="title1">Ceci est</span>
+        <span id="subtitle1">mon premier creative site</span>
+    </div>
 
     <script>
+        var current_frame = 0
+
         window.addEventListener('scroll', (event) => {
             scrollissimo.knock();
         });
+        
+        function addanimation(item, nb_frame, params) {
+            var divyTween = TweenLite.to(item, nb_frame, params);
+            scrollissimo.add(divyTween, current_frame, 30);
+            current_frame += nb_frame
+        }
 
-        var divyTween = TweenLite.to(document.getElementById('title'), 500, { fontSize: "30vh" });
-        scrollissimo.add(divyTween, 0, 30);
+        addanimation(document.getElementById('title'), 500, { fontSize: "30vh" });
+        addanimation(document.getElementById('subtitle'), 500, { fontSize: "10vh" });
 
-        var divyTween = TweenLite.to(document.getElementById('subtitle'), 500, { fontSize: "10vh" });
-        scrollissimo.add(divyTween, 500, 30);
+        addanimation(document.getElementById('section1'), 200, { width: "100vw", height: "100vh" });
+
+        addanimation(document.getElementById('title1'), 500, { fontSize: "30vh" });
+        addanimation(document.getElementById('subtitle1'), 500, { fontSize: "10vh" });
     </script>
 </body>
 </html>
