@@ -6,15 +6,31 @@
     <title>Ascol57</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='locomotive-scroll.css'>
     <script type="text/javascript" src="/scroll.js"></script>
-    <script src="locomotive-scroll.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
     <script>
-        var scroll = new LocomotiveScroll();
-    </script>
+        window.onload = function () {
+          lax.init()
+      
+          // Add a driver that we use to control our animations
+          lax.addDriver('scrollY', function () {
+            return window.scrollY
+          })
+      
+          // Add animation bindings to elements
+          lax.addElements('.selector', {
+            scrollY: {
+              translateX: [
+                ["elInY", "elCenterY", "elOutY"],
+                [0, 'screenWidth/2', 'screenWidth'],
+              ]
+            }
+          })
+        }
+      </script>
 </head>
 <body>
-    <h1 data-scroll>Hey</h1>
-    <p data-scroll>👋</p>
+    <!-- HTML -->
+    <div class="selector">Hello</div>
 </body>
 </html>
