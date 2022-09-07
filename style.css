@@ -1,3 +1,4 @@
-html:not([data-scroll='0']) .topnav {
-    background-color: #eee;
+.blank {
+    width: 100vw;
+    height: 100vh;
 }
