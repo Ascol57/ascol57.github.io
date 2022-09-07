@@ -1,3 +1,7 @@
+html {
+    overflow-x: hidden;
+}
+
 .blank {
     width: 100vw;
     height: 100vh;
