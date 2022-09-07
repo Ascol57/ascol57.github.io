@@ -6,37 +6,26 @@
     <title>Ascol57</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
-    <script type="text/javascript" src="/scroll.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
-    <script>
-        window.onload = function () {
-          lax.init()
-      
-          // Add a driver that we use to control our animations
-          lax.addDriver('scrollY', function () {
-            return window.scrollY
-          })
-      
-          // Add animation bindings to elements
-          lax.addElements('.selector', {
-            scrollY: {
-              translateX: [
-                ["elInY", "elCenterY", "elOutY"],
-                ["0", 'screenWidth/2', 'screenWidth'],
-              ],
-              scale: [
-                ["elInY", "elCenterY", "elOutY"],
-                ["0", "1", "2"],
-              ]
-            }
-          })
-        }
-      </script>
+    <script type="text/javascript" src="main.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="node_modules/scrollissimo/dist/scrollissimo.min.js"></script>
 </head>
 <body>
     <!-- HTML -->
     <div class="blank"></div>
-    <div class="selector">Hello</div>
-    <div class="blank"></div>
+    <div id="header"><span id="title">Ascol57</span>
+    <span id="subtitle">Sous titre</span></div>
+
+    <script>
+        window.addEventListener('scroll', (event) => {
+            scrollissimo.knock();
+        });
+
+        var divyTween = TweenLite.to(document.getElementById('title'), 500, { fontSize: "30vh" });
+        scrollissimo.add(divyTween, 0, 30);
+
+        var divyTween = TweenLite.to(document.getElementById('subtitle'), 500, { fontSize: "10vh" });
+        scrollissimo.add(divyTween, 500, 30);
+    </script>
 </body>
 </html>
