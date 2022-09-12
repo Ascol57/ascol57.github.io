@@ -44,21 +44,53 @@
 
     <div id="section3">
         <span id="title3">Mes compétences</span>
-        <div class="competence_section">
-            <div class="competence">
-                <span class="label">HTML</span>
-                <input type="range" min="1" max="100" value="80" class="slider">
-                <span id="number">
+        <div class="flex_section">
+            <div id="competence_section1">
+                <h2>Web</h2>
+
+                <div class="competence">
+                    <span class="label">HTML</span>
+                    <input type="range" min="1" max="100" value="80" class="slider">
+                    <span id="number">
+                </div>
+                <div class="competence">
+                    <span class="label">CSS</span>
+                    <input type="range" min="1" max="100" value="70" class="slider">
+                    <span id="number">
+                </div>
+                <div class="competence">
+                    <span class="label">JS (client)</span>
+                    <input type="range" min="1" max="100" value="70" class="slider">
+                    <span id="number">
+                </div>
+                <div class="competence">
+                    <span class="label">NodeJS</span>
+                    <input type="range" min="1" max="100" value="40" class="slider">
+                    <span id="number">
+                </div>
+                <div class="competence">
+                    <span class="label">PHP</span>
+                    <input type="range" min="1" max="100" value="30" class="slider">
+                    <span id="number">
+                </div>
             </div>
-            <div class="competence">
-                <span class="label">CSS</span>
-                <input type="range" min="1" max="100" value="70" class="slider">
-                <span id="number">
-            </div>
-            <div class="competence">
-                <span class="label">JS (client)</span>
-                <input type="range" min="1" max="100" value="70" class="slider">
-                <span id="number">
+            <div id="competence_section2">
+                <h2>Graphisme</h2>
+                <div class="competence">
+                    <span class="label">Blender</span>
+                    <input type="range" min="1" max="100" value="60" class="slider">
+                    <span id="number">
+                </div>
+                <div class="competence">
+                    <span class="label">Gimp</span>
+                    <input type="range" min="1" max="100" value="80" class="slider">
+                    <span id="number">
+                </div>
+                <div class="competence">
+                    <span class="label">Inskape</span>
+                    <input type="range" min="1" max="100" value="60" class="slider">
+                    <span id="number">
+                </div>
             </div>
         </div>
     </div>
@@ -81,8 +113,6 @@
         const min = rangeInputs.min
         const max = rangeInputs.max
         const val = rangeInputs.value
-
-        target.style.backgroundSize = (val - min) * 100 / (max - min) + '% 100%'
     </script>
 
     <script>
@@ -98,17 +128,25 @@
             current_frame += nb_frame
         }
 
-        function suppranimation() {
+        function suppranimation(nb_frame) {
+            current_frame -= nb_frame
+        }
 
+        function wait(nb_frame) {
+            current_frame += nb_frame
         }
 
         addanimation(document.getElementById('title'), 500, { fontSize: "30vh" });
         addanimation(document.getElementById('subtitle'), 500, { fontSize: "10vh" });
 
+        wait(500)
+
         addanimation(document.getElementById('section1'), 200, { width: "100vw", height: "100vh" });
 
-        addanimation(document.getElementById('title1'), 500, { fontSize: "30vh" });
-        addanimation(document.getElementById('subtitle1'), 500, { fontSize: "20vh" });
+        addanimation(document.getElementById('title1'), 500, { fontSize: "20vh" });
+        addanimation(document.getElementById('subtitle1'), 500, { fontSize: "10vh" });
+
+        wait(500)
 
         addanimation(document.getElementById('section2'), 200, { width: "100vw", height: "100vh" });
 
@@ -123,9 +161,14 @@
         addanimation(document.getElementById('step3'), 1, { display: "block" });
         addanimation(document.getElementById('step3'), 200, { height: "12vh" });
 
+        wait(500)
+
         addanimation(document.getElementById('section3'), 200, { width: "100vw", height: "100vh" });
 
         addanimation(document.getElementById('title3'), 500, { fontSize: "20vh" });
+        addanimation(document.getElementById('competence_section1'), 500, { opacity: "1" });
+        suppranimation(500)
+        addanimation(document.getElementById('competence_section2'), 500, { opacity: "1" });
     </script>
 </body>
 </html>

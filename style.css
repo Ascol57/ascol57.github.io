@@ -156,6 +156,23 @@ input[type=range]::-webkit-slider-runnable-track  {
     background: transparent;
 }
 
+.flex_section {
+    display: flex;
+}
+
+h2 {
+    font-size: 5vh;
+    text-align: center;
+}
+
+#competence_section1 {
+    opacity: 0;
+}
+
+#competence_section2 {
+    opacity: 0;
+}
+
 .competence {
     margin: 10px;
     max-width: 400px;
