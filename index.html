@@ -7,8 +7,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
     <script type="text/javascript" src="main.js"></script>
-    <script src="TweenMax.min.js"></script>
-    <script src="scrollissimo.min.js"></script>
+    <script src="TweenMax.js"></script>
+    <script src="scrollissimo.js"></script>
 </head>
 <body>
     <!-- HTML -->
@@ -54,6 +54,8 @@
             scrollissimo.add(divyTween, current_frame, 30);
             current_frame += nb_frame
         }
+
+        function suppranimation()
 
         addanimation(document.getElementById('title'), 500, { fontSize: "30vh" });
         addanimation(document.getElementById('subtitle'), 500, { fontSize: "10vh" });
