@@ -42,6 +42,49 @@
         </div>
     </div>
 
+    <div id="section3">
+        <span id="title3">Mes compétences</span>
+        <div class="competence_section">
+            <div class="competence">
+                <span class="label">HTML</span>
+                <input type="range" min="1" max="100" value="80" class="slider">
+                <span id="number">
+            </div>
+            <div class="competence">
+                <span class="label">CSS</span>
+                <input type="range" min="1" max="100" value="70" class="slider">
+                <span id="number">
+            </div>
+            <div class="competence">
+                <span class="label">JS (client)</span>
+                <input type="range" min="1" max="100" value="70" class="slider">
+                <span id="number">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rangeInputs = document.querySelectorAll('input[type="range"]')
+        const numberInputs = document.querySelectorAll('span[id="number"]')
+        console.log(numberInputs)
+
+        rangeInputs.forEach((element, index) => {
+            const min = element.min
+            const max = element.max
+            const val = element.value
+
+            numberInputs[index].innerHTML = val+" %"
+
+            element.style.backgroundSize = (val - min) * 100 / (max - min) + '% 100%'
+        });
+
+        const min = rangeInputs.min
+        const max = rangeInputs.max
+        const val = rangeInputs.value
+
+        target.style.backgroundSize = (val - min) * 100 / (max - min) + '% 100%'
+    </script>
+
     <script>
         var current_frame = 0;
 
@@ -55,7 +98,9 @@
             current_frame += nb_frame
         }
 
-        function suppranimation()
+        function suppranimation() {
+
+        }
 
         addanimation(document.getElementById('title'), 500, { fontSize: "30vh" });
         addanimation(document.getElementById('subtitle'), 500, { fontSize: "10vh" });
@@ -77,6 +122,10 @@
 
         addanimation(document.getElementById('step3'), 1, { display: "block" });
         addanimation(document.getElementById('step3'), 200, { height: "12vh" });
+
+        addanimation(document.getElementById('section3'), 200, { width: "100vw", height: "100vh" });
+
+        addanimation(document.getElementById('title3'), 500, { fontSize: "20vh" });
     </script>
 </body>
 </html>
