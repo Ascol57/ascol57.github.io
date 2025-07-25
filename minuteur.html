@@ -64,10 +64,14 @@
         timeLeft--;
         countdownEl.textContent = timeLeft;
         if (timeLeft <= 0) {
-          clearInterval(timer);
-          endSound.play();
-          messageEl.textContent = "Terminé !";
-        }
+  clearInterval(timer);
+  timer = null;
+  timeLeft = 15;
+  endSound.play();
+  messageEl.textContent = "Clique pour recommencer !";
+  countdownEl.textContent = timeLeft;
+  document.body.classList.remove("running");
+}
       }, 1000);
     }
 
