@@ -40,7 +40,7 @@
   </style>
 </head>
 <body onclick="startTimer()" id="body">
-  <div id="countdown">20</div>
+  <div id="countdown">15</div>
   <div id="message">Clique pour démarrer !</div>
 
   <audio id="endSound" preload="auto">
@@ -50,7 +50,7 @@
 
   <script>
     let timer = null;
-    let timeLeft = 20;
+    let timeLeft = 15;
     const countdownEl = document.getElementById("countdown");
     const messageEl = document.getElementById("message");
     const endSound = document.getElementById("endSound");
@@ -66,7 +66,7 @@
         if (timeLeft <= 0) {
   clearInterval(timer);
   timer = null;
-  timeLeft = 20;
+  timeLeft = 15;
   endSound.play();
   messageEl.textContent = "Clique pour recommencer !";
   countdownEl.textContent = timeLeft;
