@@ -84,7 +84,7 @@ npx http-server -p 8000
 
 ### 📄 License
 
-MIT — see LICENSE if present.
+Copyright Constant RUSCHÉ
 
 ---
 
@@ -158,4 +158,4 @@ npx http-server -p 8000
 
 ### 📄 Licence
 
-MIT — voir LICENSE si présent.
+Copyright Constant RUSCHÉ
