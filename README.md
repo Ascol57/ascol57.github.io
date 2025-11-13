@@ -159,15 +159,3 @@ npx http-server -p 8000
 ### 📄 Licence
 
 MIT — voir LICENSE si présent.
-
----
-
-If you want I can:
-- Add badges (license, build, etc.)
-- Add a small `serve.ps1` script to start the local server quickly on Windows
-- Add a small script to validate that `data-i18n` keys exist in both `locales` files
-
----
-
-Thanks — tell me if you want screenshots or a shortened README.
-  - Chat en temps réel
