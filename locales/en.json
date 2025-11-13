@@ -1,0 +1,35 @@
+{
+  "title": "Constant RUSCHÉ (Ascol57)",
+  "hero_subtitle": "Ascol57 · Developer & Creator",
+  "section_title": "My Work",
+  "proj1_description": "Plugin development and graphic design for a unique, immersive gaming experience",
+  "proj1_today_title": "Today,",
+  "proj1_today_p1": "I'm working on a brand new game mode called <a class=\"important\">Off The Base</a>. For now there is no trailer or demo to show.",
+  "proj1_before_title": "Before,",
+  "proj1_before_p1": "I previously worked on the server <a class=\"important\">Explodium</a>, a skyblock server with innovative mechanics and a small community of around a hundred players.",
+
+  "proj2_description": "Forum creation, administration, web development, bots and community tools",
+  "proj2_today_title": "Today,",
+  "proj2_today_p1": "I no longer run forums. I assist friends or those in need by helping moderate communities and providing tools.",
+  "proj2_before_title": "Before,",
+  "proj2_before_p1": "I founded a French help forum called <a class=\"important\">Particule Informatique</a>. Everything took place on Discord. I created tools to let users write and share guides.",
+  "proj2_before_p2": "I also ran an international music team, <a class=\"important\">Subwoofer Studio</a>, which taught me a lot. I created AI-based audio moderation tools that work multilingual. My moderation was tested during a raid.",
+
+  "proj3_description": "Custom Discord bots to automate and improve user experience",
+  "proj3_today_title": "Today,",
+  "proj3_today_p1": "I'm working on <a class=\"important\">WebPing</a>, a webhook alert system to monitor web services and social networks in real time, \"free and unlimited\". The product is not yet public.",
+  "proj3_today_p2": "I help maintain <a href=\"https://discord.com/oauth2/authorize?client_id=923587525388423198&permissions=4332055832&scope=bot&redirect_uri=https://discord.gg/uszARQEDhD&response_type=code\">UltionRoid</a>, a music bot. The other founder and I try to keep it alive without adding new features.",
+  "proj3_today_p3": "I still develop private bots to meet specific needs.",
+  "proj3_before_title": "Before,",
+  "proj3_before_p1": "I co-founded <a href=\"https://discord.com/oauth2/authorize?client_id=923587525388423198&permissions=4332055832&scope=bot&redirect_uri=https://discord.gg/uszARQEDhD&response_type=code\">UltionRoid</a>, a music bot. It still exists but is no longer actively developed.",
+
+  "proj4_description": "Innovative tools for streamers and content creators",
+  "proj4_p1": "It's a tool linking Castmate to any browser. Using <a class=\"important\">ngrok</a> tunnels, this panel can even be used outside the LAN.",
+  "proj4_p2": "It's a web-deployable software that lets people listen to the same private playlist live with others. Drop mp3 or wav files into the <a class=\"important\">/music</a> folder and start the apps.",
+  "proj4_p3": "It's an automation app for streaming on <a class=\"important\">Twitch</a>, developed by LordTocs. It manages OBS scenes, alerts, chat commands, and more. I don't develop it, but I contribute bug reports and feature ideas.",
+
+  "footer": "✨ Create · Enjoy · Inspire ✨"
+  ,
+  "nav_projects": "My Work",
+  "nav_github": "GitHub"
+}

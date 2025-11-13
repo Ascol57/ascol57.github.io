@@ -1,174 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Ascol57</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
-    <script type="text/javascript" src="main.js"></script>
-    <script src="TweenMax.js"></script>
-    <script src="scrollissimo.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">Constant RUSCHÉ (Ascol57)</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- HTML -->
-    <div class="blank"></div>
-
-    <div id="header">
-        <span id="title">Ascol57</span>
-        <span id="subtitle">Développeur frontend</span>
+    <div class="animated-bg">
+        <div class="glow-orb orb1"></div>
+        <div class="glow-orb orb2"></div>
+        <div class="glow-orb orb3"></div>
     </div>
 
-    <div id="section1">
-        <span id="title1">Ceci est</span>
-        <span id="subtitle1">mon premier site créatif.</span>
+    <div class="container">
+        <header>
+            <img src="Constant face.svg" style="height: 20vh; transform: translateY(-8vh);"/>
+            <h1 class="hero-title">CONSTANT RUSCHÉ</h1>
+            <div class="hero-subtitle" data-i18n="hero_subtitle">Ascol57 · Développeur & Créateur</div>
+            <div class="lang-switch" aria-hidden="false" data-lang="fr">
+                <div class="lang-indicator" aria-hidden="true"></div>
+                <button class="lang-btn" data-lang="fr" aria-pressed="true">🇫🇷</button>
+                <button class="lang-btn" data-lang="en" aria-pressed="false">🇬🇧</button>
+            </div>
+            <div class="scroll-indicator"></div>
+        </header>
+
+        <section id="projects" class="projects-section">
+            <h2 class="section-title" data-i18n="section_title">Mon Travail</h2>
+            
+            <div class="projects-grid">
+                <div class="project-card slide-left">
+                    <span class="project-icon">⛏️</span>
+                    <div class="project-title">Serveur Minecraft</div>
+                    <div class="project-subtitle">Explodium, Off The Base</div>
+                    <div class="project-description" data-i18n="proj1_description">Création et configuration de plugins et création graphique pour une expérience de jeu unique et immersive</div>
+                    <div class="project-detail">
+                        <h3 data-i18n="proj1_today_title">Aujourd'hui,</h3>
+                        <p data-i18n="proj1_today_p1">je travaille sur un mode de jeu complètement nouveau appelé <a class="important">Off The Base</a>. Pour l'instant, je n'ai pas d'extrait ou de bande-annonce à montrer</p>
+                        <h3 data-i18n="proj1_before_title">Avant,</h3>
+                        <p data-i18n="proj1_before_p1">j'ai travaillé sur le serveur <a class="important">Explodium</a>, un serveur skyblock avec des mécaniques innovantes et une petite communauté d'une centaine de joueurs.</p>
+                    </div>
+                </div>
+
+                <div class="project-card slide-right">
+                    <span class="project-icon">💬</span>
+                    <div class="project-title">Forum d'entraide</div>
+                    <div class="project-subtitle">Particule Informatique, Subwoofer Studio</div>
+                    <div class="project-description" data-i18n="proj2_description">Création de forums, administration, développement de sites web, bots et outils communautaires</div>
+                    <div class="project-detail">
+                        <h3 data-i18n="proj2_today_title">Aujourd'hui,</h3>
+                        <p data-i18n="proj2_today_p1">je ne gère plus de forums. J'aide des amis ou, tout simplement, ceux qui en ont besoin à gérer leurs communautés grâce à la modération et à la création d'outils.</p>
+                        <h3 data-i18n="proj2_before_title">Avant,</h3>
+                        <p data-i18n="proj2_before_p1">J'ai fondé un forum d'entraide informatique français appelé <a class="important">Particule Informatique</a>. Tout se déroulait sur Discord. J'ai conçu des outils permettant la création de guides pour tous les utilisateurs.</p>
+                        <p data-i18n="proj2_before_p2">J'ai également géré une équipe de musique internationale, <a class="important">Subwoofer Studio</a>, qui m'a beaucoup appris. J'ai créé des outils de modération audio basés sur l'IA qui fonctionnent de manière multilingue. Ma modération a fait ses preuves lors d'un raid.</p>
+                    </div>
+                </div>
+
+                <div class="project-card slide-left">
+                    <span class="project-icon">🤖</span>
+                    <div class="project-title">Bot Discord</div>
+                    <div class="project-subtitle">UltionRoid, WebPing</div>
+                    <div class="project-description" data-i18n="proj3_description">Développement de bots Discord personnalisés pour automatiser et améliorer l'expérience utilisateur</div>
+                    <div class="project-detail">
+                        <h3 data-i18n="proj3_today_title">Aujourd'hui,</h3>
+                        <p data-i18n="proj3_today_p1">je travaille sur <a class="important">WebPing</a>, un système d'alertes webhook permettant de monitorer des services web et réseaux sociaux en temps réel de manière "gratuite et illimitée". Le produit n'est pas encore disponible publiquement.</p>
+                        <p data-i18n="proj3_today_p2">Je participe au maintien d'<a href="https://discord.com/oauth2/authorize?client_id=923587525388423198&permissions=4332055832&scope=bot&redirect_uri=https://discord.gg/uszARQEDhD&response_type=code">UltionRoid</a>, un bot musical. Nous essayons, avec l'autre fondateur, de le maintenir en vie sans ajouter de nouvelles fonctionnalités.</p>
+                        <p data-i18n="proj3_today_p3">Je développe toujours des bots pour des besoins spécifiques de manière privée.</p>
+                        <h3 data-i18n="proj3_before_title">Avant,</h3>
+                        <p data-i18n="proj3_before_p1">J'ai co-fondé <a href="https://discord.com/oauth2/authorize?client_id=923587525388423198&permissions=4332055832&scope=bot&redirect_uri=https://discord.gg/uszARQEDhD&response_type=code">UltionRoid</a>, un bot musical. Le bot existe toujours mais n'est plus amélioré.</p>
+                    </div>
+                </div>
+
+                <div class="project-card slide-right">
+                    <span class="project-icon">🎥</span>
+                    <div class="project-title">Outils de streaming</div>
+                    <div class="project-subtitle">RemoteMate, Radio Live Music, Castmate</div>
+                    <div class="project-description" data-i18n="proj4_description">Développement d'outils innovants pour streamers et créateurs de contenu</div>
+                    <div class="project-detail">
+                        <h3><a href="https://github.com/Ascol57/RemoteMate">RemoteMate</a></h3>
+                        <p data-i18n="proj4_p1">C'est un outil liant Castmate à n'importe quel navigateur. En passant par les tunnels de <a class="important">ngrok</a>, ce panneau est même utilisable en dehors du réseau local.</p>
+                        <h3><a href="https://github.com/Ascol57/Radio-Live-Music">Radio Live Music</a></h3>
+                        <p data-i18n="proj4_p2">C'est un logiciel web à déployer qui permet d'écouter la même playlist privée en direct avec d'autres personnes. On met ses mp3 ou wav dans le dossier <a class="important">/music</a> et il suffit de démarrer ses applications.</p>
+                        <h3><a href="https://github.com/LordTocs/CastMate">Castmate</a></h3>
+                        <p data-i18n="proj4_p3">C'est une application d'automatisation, notamment pour le streaming sur <a class="important">Twitch</a>, développée par LordTocs. Elle permet de gérer des scènes OBS, des alertes, des commandes chat, et bien plus encore. Ce n'est pas moi qui le développe mais je participe activement à la recherche de bugs et à l'ajout de fonctionnalités.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <div class="footer-left">
+                    <div class="footer-brand">CONSTANT RUSCHÉ</div>
+                    <p class="footer-tag" data-i18n="footer">✨ Créer · S'amuser · Inspirer ✨</p>
+                </div>
+                <div class="footer-right">
+                    <nav class="footer-nav">
+                        <a href="#projects" class="footer-link" data-i18n="nav_projects">Mon Travail</a>
+                        <a href="https://github.com/Ascol57" class="footer-link" target="_blank" rel="noopener" data-i18n="nav_github">GitHub</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">© <span id="footer-year"></span> CONSTANT RUSCHÉ</div>
+        </footer>
     </div>
 
-    <div id="section2">
-        <span id="title2">Mon parcours</span>
-        <div id="path">
-            <div id="step1" class="step">
-                <p id="steptitle">Explodium</p>
-                <p>Configuration de plugin, graphisme</p>
+    <!-- Modal for project details -->
+    <div id="modal" class="modal" aria-hidden="true">
+        <div class="modal-overlay" data-close></div>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button class="modal-close" aria-label="Fermer">×</button>
+            <div class="modal-header">
+                <span class="modal-icon"></span>
+                <h3 id="modal-title"></h3>
+                <div class="modal-subtitle"></div>
             </div>
-            <div id="step2" class="step">
-                <p id="steptitle">Particule informatique</p>
-                <p>Admin-fondateur, Développement du site</p>
-            </div>
-            <div id="step3" class="step">
-                <p id="steptitle">UltionRoid</p>
-                <p>Développement du bot et du site</p>
-            </div>
+            <div class="modal-body"></div>
         </div>
     </div>
 
-    <div id="section3">
-        <span id="title3">Mes compétences</span>
-        <div class="flex_section">
-            <div id="competence_section1">
-                <h2>Web</h2>
-
-                <div class="competence">
-                    <span class="label">HTML</span>
-                    <input type="range" min="1" max="100" value="80" class="slider">
-                    <span id="number">
-                </div>
-                <div class="competence">
-                    <span class="label">CSS</span>
-                    <input type="range" min="1" max="100" value="70" class="slider">
-                    <span id="number">
-                </div>
-                <div class="competence">
-                    <span class="label">JS (client)</span>
-                    <input type="range" min="1" max="100" value="70" class="slider">
-                    <span id="number">
-                </div>
-                <div class="competence">
-                    <span class="label">NodeJS</span>
-                    <input type="range" min="1" max="100" value="40" class="slider">
-                    <span id="number">
-                </div>
-                <div class="competence">
-                    <span class="label">PHP</span>
-                    <input type="range" min="1" max="100" value="30" class="slider">
-                    <span id="number">
-                </div>
-            </div>
-            <div id="competence_section2">
-                <h2>Graphisme</h2>
-                <div class="competence">
-                    <span class="label">Blender</span>
-                    <input type="range" min="1" max="100" value="60" class="slider">
-                    <span id="number">
-                </div>
-                <div class="competence">
-                    <span class="label">Gimp</span>
-                    <input type="range" min="1" max="100" value="80" class="slider">
-                    <span id="number">
-                </div>
-                <div class="competence">
-                    <span class="label">Inskape</span>
-                    <input type="range" min="1" max="100" value="60" class="slider">
-                    <span id="number">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const rangeInputs = document.querySelectorAll('input[type="range"]')
-        const numberInputs = document.querySelectorAll('span[id="number"]')
-        console.log(numberInputs)
-
-        rangeInputs.forEach((element, index) => {
-            const min = element.min
-            const max = element.max
-            const val = element.value
-
-            numberInputs[index].innerHTML = val+" %"
-
-            element.style.backgroundSize = (val - min) * 100 / (max - min) + '% 100%'
-        });
-
-        const min = rangeInputs.min
-        const max = rangeInputs.max
-        const val = rangeInputs.value
-    </script>
-
-    <script>
-        var current_frame = 0;
-
-        window.addEventListener('scroll', (event) => {
-            scrollissimo.knock();
-        });
-        
-        function addanimation(item, nb_frame, params) {
-            var divyTween = TweenLite.to(item, nb_frame, params);
-            scrollissimo.add(divyTween, current_frame, 30);
-            current_frame += nb_frame
-        }
-
-        function suppranimation(nb_frame) {
-            current_frame -= nb_frame
-        }
-
-        function wait(nb_frame) {
-            current_frame += nb_frame
-        }
-
-        addanimation(document.getElementById('title'), 500, { fontSize: "30vh" });
-        addanimation(document.getElementById('subtitle'), 500, { fontSize: "10vh" });
-
-        wait(500)
-
-        addanimation(document.getElementById('section1'), 200, { width: "100vw", height: "100vh" });
-
-        addanimation(document.getElementById('title1'), 500, { fontSize: "20vh" });
-        addanimation(document.getElementById('subtitle1'), 500, { fontSize: "10vh" });
-
-        wait(500)
-
-        addanimation(document.getElementById('section2'), 200, { width: "100vw", height: "100vh" });
-
-        addanimation(document.getElementById('title2'), 500, { fontSize: "20vh" });
-
-        addanimation(document.getElementById('step1'), 1, { display: "block" });
-        addanimation(document.getElementById('step1'), 200, { height: "12vh" });
-
-        addanimation(document.getElementById('step2'), 1, { display: "block" });
-        addanimation(document.getElementById('step2'), 200, { height: "12vh" });
-
-        addanimation(document.getElementById('step3'), 1, { display: "block" });
-        addanimation(document.getElementById('step3'), 200, { height: "12vh" });
-
-        wait(500)
-
-        addanimation(document.getElementById('section3'), 200, { width: "100vw", height: "100vh" });
-
-        addanimation(document.getElementById('title3'), 500, { fontSize: "20vh" });
-        addanimation(document.getElementById('competence_section1'), 500, { opacity: "1" });
-        suppranimation(500)
-        addanimation(document.getElementById('competence_section2'), 500, { opacity: "1" });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+{
+  "title": "Constant RUSCHÉ (Ascol57)",
+  "hero_subtitle": "Ascol57 · Développeur & Créateur",
+  "section_title": "Mon Travail",
+  "proj1_description": "Création et configuration de plugins et création graphique pour une expérience de jeu unique et immersive",
+  "proj1_today_title": "Aujourd'hui,",
+  "proj1_today_p1": "je travaille sur un mode de jeu complètement nouveau appelé <a class=\"important\">Off The Base</a>. Pour l'instant, je n'ai pas d'extrait ou de bande-annonce à montrer",
+  "proj1_before_title": "Avant,",
+  "proj1_before_p1": "j'ai travaillé sur le serveur <a class=\"important\">Explodium</a>, un serveur skyblock avec des mécaniques innovantes et une petite communauté d'une centaine de joueurs.",
+
+  "proj2_description": "Création de forums, administration, développement de sites web, bots et outils communautaires",
+  "proj2_today_title": "Aujourd'hui,",
+  "proj2_today_p1": "je ne gère plus de forums. J'aide des amis ou, tout simplement, ceux qui en ont besoin à gérer leurs communautés grâce à la modération et à la création d'outils.",
+  "proj2_before_title": "Avant,",
+  "proj2_before_p1": "J'ai fondé un forum d'entraide informatique français appelé <a class=\"important\">Particule Informatique</a>. Tout se déroulait sur Discord. J'ai conçu des outils permettant la création de guides pour tous les utilisateurs.",
+  "proj2_before_p2": "J'ai également géré une équipe de musique internationale, <a class=\"important\">Subwoofer Studio</a>, qui m'a beaucoup appris. J'ai créé des outils de modération audio basés sur l'IA qui fonctionnent de manière multilingue. Ma modération a fait ses preuves lors d'un raid.",
+
+  "proj3_description": "Développement de bots Discord personnalisés pour automatiser et améliorer l'expérience utilisateur",
+  "proj3_today_title": "Aujourd'hui,",
+  "proj3_today_p1": "je travaille sur <a class=\"important\">WebPing</a>, un système d'alertes webhook permettant de monitorer des services web et réseaux sociaux en temps réel de manière \"gratuite et illimitée\". Le produit n'est pas encore disponible publiquement.",
+  "proj3_today_p2": "Je participe au maintien d'<a href=\"https://discord.com/oauth2/authorize?client_id=923587525388423198&permissions=4332055832&scope=bot&redirect_uri=https://discord.gg/uszARQEDhD&response_type=code\">UltionRoid</a>, un bot musical. Nous essayons, avec l'autre fondateur, de le maintenir en vie sans ajouter de nouvelles fonctionnalités.",
+  "proj3_today_p3": "Je développe toujours des bots pour des besoins spécifiques de manière privée.",
+  "proj3_before_title": "Avant,",
+  "proj3_before_p1": "J'ai co-fondé <a href=\"https://discord.com/oauth2/authorize?client_id=923587525388423198&permissions=4332055832&scope=bot&redirect_uri=https://discord.gg/uszARQEDhD&response_type=code\">UltionRoid</a>, un bot musical. Le bot existe toujours mais n'est plus amélioré.",
+
+  "proj4_description": "Développement d'outils innovants pour streamers et créateurs de contenu",
+  "proj4_p1": "C'est un outil liant Castmate à n'importe quel navigateur. En passant par les tunnels de <a class=\"important\">ngrok</a>, ce panneau est même utilisable en dehors du réseau local.",
+  "proj4_p2": "C'est un logiciel web à déployer qui permet d'écouter la même playlist privée en direct avec d'autres personnes. On met ses mp3 ou wav dans le dossier <a class=\"important\">/music</a> et il suffit de démarrer ses applications.",
+  "proj4_p3": "C'est une application d'automatisation, notamment pour le streaming sur <a class=\"important\">Twitch</a>, développée par LordTocs. Elle permet de gérer des scènes OBS, des alertes, des commandes chat, et bien plus encore. Ce n'est pas moi qui le développe mais je participe activement à la recherche de bugs et à l'ajout de fonctionnalités.",
+
+  "footer": "✨ Créer · S'amuser · Inspirer ✨"
+  ,
+  "nav_projects": "Mon Travail",
+  "nav_github": "GitHub"
+}
