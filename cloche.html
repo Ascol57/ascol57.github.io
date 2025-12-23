@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soundbox Pro - Zéro Latence</title>
+    <title>Soundbox Pro - Anti-Veille</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -15,7 +15,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            user-select: none; /* Évite de sélectionner le texte en bourrinant les boutons */
+            user-select: none;
         }
 
         h1 { margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; font-size: 1.5rem;}
@@ -54,7 +54,7 @@
         }
 
         .sound-btn {
-            background-color: #34495e; /* Couleur par défaut (non chargé) */
+            background-color: #34495e;
             color: #bdc3c7;
             border: none;
             padding: 30px 20px;
@@ -67,45 +67,40 @@
             font-weight: bold;
         }
 
-        /* Quand le son est chargé en RAM */
         .sound-btn.loaded {
             background-color: #3498db;
             color: white;
             cursor: pointer;
-            box-shadow: 0 4px 0 #2980b9; /* Effet 3D */
+            box-shadow: 0 4px 0 #2980b9;
         }
 
         .sound-btn.loaded:active { 
-            transform: translateY(4px); /* Effet d'enfoncement */
+            transform: translateY(4px);
             box-shadow: 0 0 0 #2980b9; 
             background-color: #5dade2;
         }
 
-        /* Désactivé tant que le système n'est pas ON */
         .sound-grid.locked {
             opacity: 0.5;
             pointer-events: none;
         }
 
         .status { margin-top: 30px; color: #7f8c8d; font-size: 0.8em; font-family: monospace;}
+        .status.on { color: #2ecc71; }
     </style>
 </head>
 <body>
 
-    <h1>🚀 Soundbox Zéro Latence</h1>
+    <h1>🚀 Soundbox Anti-Veille</h1>
 
     <button id="btn-init" onclick="unlockAudioSystem()">
         CLIQUER POUR ACTIVER<br>
-        <small style="font-weight:normal; font-size:0.7em">(Et tuer le buzz)</small>
+        <small style="font-weight:normal; font-size:0.7em">(Anti-Buzz + Écran Allumé)</small>
     </button>
 
     <div class="sound-grid locked" id="grid">
         
         <button class="sound-btn" data-url="https://constant.rusche.fr/ClocheV2.mp3" data-key="cloche">
-            Chargement...
-        </button>
-
-        <button class="sound-btn" data-url="https://www.soundjay.com/buttons/sounds/button-10.mp3" data-key="beep">
             Chargement...
         </button>
 
@@ -115,21 +110,16 @@
 
     <script>
         // --- 1. CONFIGURATION ---
-        // Le contexte audio est créé mais "suspendu" jusqu'au clic utilisateur
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioCtx = new AudioContext();
-        
-        // Banque de sons (stockés en RAM)
         const soundBuffers = {};
+        let wakeLock = null; // Variable pour stocker le verrouillage d'écran
 
-        // --- 2. FONCTIONS DE CHARGEMENT (LE SECRET DE LA RAPIDITÉ) ---
-        
-        // Cette fonction télécharge et décode le son en binaire
+        // --- 2. FONCTIONS DE CHARGEMENT ---
         async function loadSound(url) {
             try {
                 const response = await fetch(url);
                 const arrayBuffer = await response.arrayBuffer();
-                // Décodage asynchrone pour transformer le MP3 en données brutes prêtes à jouer
                 const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
                 return audioBuffer;
             } catch (error) {
@@ -138,78 +128,94 @@
             }
         }
 
-        // On scanne tous les boutons HTML pour charger leurs sons
         async function initSoundLoader() {
             const buttons = document.querySelectorAll('.sound-btn');
             
             for (const btn of buttons) {
                 const url = btn.getAttribute('data-url');
                 const key = btn.getAttribute('data-key');
-
-                // Téléchargement...
                 const buffer = await loadSound(url);
 
                 if (buffer) {
-                    // Stockage en mémoire
                     soundBuffers[key] = buffer;
-                    
-                    // Mise à jour visuelle du bouton
-                    btn.innerText = key.toUpperCase(); // Ou mettre un texte personnalisé
+                    btn.innerText = key.toUpperCase();
                     btn.classList.add('loaded');
-                    
-                    // Ajout du déclencheur au clic
                     btn.onclick = () => playBuffer(key);
                 } else {
                     btn.innerText = "ERREUR";
                     btn.style.backgroundColor = "#c0392b";
                 }
             }
-            document.getElementById('status-text').innerText = "Sons chargés en mémoire. En attente d'activation.";
+            document.getElementById('status-text').innerText = "Sons chargés. En attente d'activation.";
         }
 
-        // --- 3. FONCTION DE LECTURE INSTANTANÉE ---
+        // --- 3. FONCTION DE LECTURE ---
         function playBuffer(key) {
             if (!soundBuffers[key]) return;
-
-            // On crée une "source" éphémère pour chaque son joué
-            // C'est ce qui permet la polyphonie (plusieurs sons en même temps)
             const source = audioCtx.createBufferSource();
             source.buffer = soundBuffers[key];
             source.connect(audioCtx.destination);
-            source.start(0); // 0 = immédiat
+            source.start(0);
         }
 
-        // --- 4. ACTIVATION DU SYSTÈME (ANTI-BUZZ + DÉVERROUILLAGE) ---
-        function unlockAudioSystem() {
-            // Reprise du contexte audio (nécessaire pour les navigateurs modernes)
+        // --- 4. GESTION DE L'ANTI-VEILLE (Wake Lock API) ---
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    console.log('Verrouillage écran actif');
+                    return true;
+                } else {
+                    console.warn("Wake Lock API non supportée par ce navigateur.");
+                    return false;
+                }
+            } catch (err) {
+                console.error(`${err.name}, ${err.message}`);
+                return false;
+            }
+        }
+
+        // --- 5. ACTIVATION DU SYSTÈME ---
+        async function unlockAudioSystem() {
+            // A. Audio
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
 
-            // --- L'OSCILLATEUR ANTI-BUZZ (Ta demande initiale) ---
+            // B. Anti-Buzz (Oscillateur 19kHz)
             const oscillator = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
-
             oscillator.type = 'sine';
-            oscillator.frequency.value = 19000; // 19kHz (Inaudible)
-            gainNode.gain.value = 0.00001;      // Volume infinitésimal
-
+            oscillator.frequency.value = 19000; 
+            gainNode.gain.value = 0.00001;      
             oscillator.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             oscillator.start();
-            // ----------------------------------------------------
 
-            // Interface
+            // C. Anti-Veille (Écran)
+            const wakeLockSuccess = await requestWakeLock();
+
+            // D. Interface
             const btnInit = document.getElementById('btn-init');
             btnInit.innerHTML = "SYSTÈME ACTIF ✅";
             btnInit.classList.add('active');
             
-            // On débloque la grille
             document.getElementById('grid').classList.remove('locked');
-            document.getElementById('status-text').innerText = "Prêt à faire du bruit.";
+            
+            const statusText = document.getElementById('status-text');
+            statusText.classList.add('on');
+            statusText.innerHTML = wakeLockSuccess 
+                ? "Audio OK • Anti-Buzz OK • Écran maintenu allumé" 
+                : "Audio OK • Anti-Buzz OK • (Anti-veille non supporté)";
         }
 
-        // Lancer le chargement des sons dès que la page s'ouvre
+        // Réactiver le Wake Lock si on change d'onglet et qu'on revient
+        document.addEventListener('visibilitychange', async () => {
+            if (wakeLock !== null && document.visibilityState === 'visible') {
+                await requestWakeLock();
+            }
+        });
+
         window.addEventListener('load', initSoundLoader);
 
     </script>
