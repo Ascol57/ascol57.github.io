@@ -79,7 +79,7 @@
 
     <div class="status" id="status-text">Système en attente...</div>
 
-    <script>
+       <script>
         let audioCtx;
         
         function initAudio() {
@@ -87,17 +87,19 @@
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             audioCtx = new AudioContext();
 
-            // --- LE SECRET ANTI-BUZZ ---
-            // On crée un oscillateur qui génère un son continu
+            // --- CORRECTION ANTI-BUZZ V2 ---
             const oscillator = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
 
             oscillator.type = 'sine'; 
-            oscillator.frequency.value = 20; // 20Hz (très grave, limite de l'audible)
             
-            // Volume extrêmement bas : suffisant pour garder le câble "allumé"
-            // mais invisible pour l'oreille humaine
-            gainNode.gain.value = 0.001; 
+            // On change la fréquence : 
+            // Au lieu de 20Hz (basse), on met 19000Hz (très aigu, quasi inaudible pour l'humain)
+            oscillator.frequency.value = 19000; 
+            
+            // On baisse le volume DRASTIQUEMENT
+            // C'était 0.001, on passe à 0.00001 (100x moins fort)
+            gainNode.gain.value = 0.00001; 
 
             oscillator.connect(gainNode);
             gainNode.connect(audioCtx.destination);
@@ -105,19 +107,18 @@
             // ---------------------------
 
             // Mise à jour de l'interface
-            document.getElementById('btn-init').innerText = "SYSTÈME ACTIF ✅";
+            document.getElementById('btn-init').innerText = "SYSTÈME ACTIF (SILENCIEUX) ✅";
             document.getElementById('btn-init').classList.add('active');
             document.getElementById('grid').classList.add('ready');
-            document.getElementById('status-text').innerText = "Signal de maintien actif. Prêt à jouer.";
+            document.getElementById('status-text').innerText = "Signal inaudible actif.";
         }
 
         function playSound(url) {
             if (!audioCtx) return;
-
-            // Chargement et lecture simple d'un son
             const audio = new Audio(url);
-            audio.play().catch(e => console.error("Erreur de lecture : " + e));
+            audio.play().catch(e => console.error("Erreur : " + e));
         }
     </script>
+
 </body>
 </html>
