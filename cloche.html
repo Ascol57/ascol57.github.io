@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soundbox Anti-Buzz</title>
+    <title>Soundbox Pro - Zéro Latence</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #1a1a1a;
             color: white;
             display: flex;
@@ -15,108 +15,204 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            user-select: none; /* Évite de sélectionner le texte en bourrinant les boutons */
         }
 
-        h1 { margin-bottom: 30px; }
+        h1 { margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; font-size: 1.5rem;}
 
-        /* Le bouton principal pour activer l'audio */
+        /* --- Bouton d'activation --- */
         #btn-init {
             background-color: #e74c3c;
             color: white;
             padding: 20px 40px;
-            font-size: 24px;
+            font-size: 18px;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
-            transition: transform 0.1s;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+            transition: all 0.2s ease;
             margin-bottom: 50px;
+            font-weight: bold;
+            text-align: center;
         }
+        #btn-init:hover { transform: scale(1.05); }
         #btn-init:active { transform: scale(0.95); }
-        #btn-init.active { background-color: #27ae60; pointer-events: none; }
+        
+        #btn-init.active { 
+            background-color: #27ae60; 
+            box-shadow: 0 0 20px rgba(39, 174, 96, 0.6);
+            cursor: default;
+        }
 
-        /* Les boutons de sons */
+        /* --- Grille des sons --- */
         .sound-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
-            opacity: 0.5; /* Grisé tant que pas activé */
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-        .sound-grid.ready {
-            opacity: 1;
-            pointer-events: all;
+            width: 80%;
+            max-width: 600px;
         }
 
         .sound-btn {
+            background-color: #34495e; /* Couleur par défaut (non chargé) */
+            color: #bdc3c7;
+            border: none;
+            padding: 30px 20px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: not-allowed;
+            transition: all 0.1s;
+            position: relative;
+            overflow: hidden;
+            font-weight: bold;
+        }
+
+        /* Quand le son est chargé en RAM */
+        .sound-btn.loaded {
             background-color: #3498db;
             color: white;
-            border: none;
-            padding: 30px;
-            font-size: 18px;
-            border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 0 #2980b9; /* Effet 3D */
         }
-        .sound-btn:active { background-color: #2980b9; transform: translate(0, 2px); }
 
-        .status { margin-top: 20px; color: #7f8c8d; font-size: 0.9em; }
+        .sound-btn.loaded:active { 
+            transform: translateY(4px); /* Effet d'enfoncement */
+            box-shadow: 0 0 0 #2980b9; 
+            background-color: #5dade2;
+        }
+
+        /* Désactivé tant que le système n'est pas ON */
+        .sound-grid.locked {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .status { margin-top: 30px; color: #7f8c8d; font-size: 0.8em; font-family: monospace;}
     </style>
 </head>
 <body>
 
-    <h1>🔊 Soundbox Anti-Buzz</h1>
+    <h1>🚀 Soundbox Zéro Latence</h1>
 
-    <button id="btn-init" onclick="initAudio()">CLIQUER ICI POUR ACTIVER<br><small>(Lance le silence)</small></button>
+    <button id="btn-init" onclick="unlockAudioSystem()">
+        CLIQUER POUR ACTIVER<br>
+        <small style="font-weight:normal; font-size:0.7em">(Et tuer le buzz)</small>
+    </button>
 
-    <div class="sound-grid" id="grid">
-        <button class="sound-btn" onclick="playSound('https://constant.rusche.fr/ClocheV2.mp3')">Bruitage 1</button>
+    <div class="sound-grid locked" id="grid">
+        
+        <button class="sound-btn" data-url="https://constant.rusche.fr/ClocheV2.mp3" data-key="cloche">
+            Chargement...
+        </button>
+
+        <button class="sound-btn" data-url="https://www.soundjay.com/buttons/sounds/button-10.mp3" data-key="beep">
+            Chargement...
+        </button>
 
     </div>
 
-    <div class="status" id="status-text">Système en attente...</div>
+    <div class="status" id="status-text">Initialisation...</div>
 
-       <script>
-        let audioCtx;
+    <script>
+        // --- 1. CONFIGURATION ---
+        // Le contexte audio est créé mais "suspendu" jusqu'au clic utilisateur
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
         
-        function initAudio() {
-            // Création du contexte Audio
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            audioCtx = new AudioContext();
+        // Banque de sons (stockés en RAM)
+        const soundBuffers = {};
 
-            // --- CORRECTION ANTI-BUZZ V2 ---
+        // --- 2. FONCTIONS DE CHARGEMENT (LE SECRET DE LA RAPIDITÉ) ---
+        
+        // Cette fonction télécharge et décode le son en binaire
+        async function loadSound(url) {
+            try {
+                const response = await fetch(url);
+                const arrayBuffer = await response.arrayBuffer();
+                // Décodage asynchrone pour transformer le MP3 en données brutes prêtes à jouer
+                const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+                return audioBuffer;
+            } catch (error) {
+                console.error("Erreur chargement son:", url, error);
+                return null;
+            }
+        }
+
+        // On scanne tous les boutons HTML pour charger leurs sons
+        async function initSoundLoader() {
+            const buttons = document.querySelectorAll('.sound-btn');
+            
+            for (const btn of buttons) {
+                const url = btn.getAttribute('data-url');
+                const key = btn.getAttribute('data-key');
+
+                // Téléchargement...
+                const buffer = await loadSound(url);
+
+                if (buffer) {
+                    // Stockage en mémoire
+                    soundBuffers[key] = buffer;
+                    
+                    // Mise à jour visuelle du bouton
+                    btn.innerText = key.toUpperCase(); // Ou mettre un texte personnalisé
+                    btn.classList.add('loaded');
+                    
+                    // Ajout du déclencheur au clic
+                    btn.onclick = () => playBuffer(key);
+                } else {
+                    btn.innerText = "ERREUR";
+                    btn.style.backgroundColor = "#c0392b";
+                }
+            }
+            document.getElementById('status-text').innerText = "Sons chargés en mémoire. En attente d'activation.";
+        }
+
+        // --- 3. FONCTION DE LECTURE INSTANTANÉE ---
+        function playBuffer(key) {
+            if (!soundBuffers[key]) return;
+
+            // On crée une "source" éphémère pour chaque son joué
+            // C'est ce qui permet la polyphonie (plusieurs sons en même temps)
+            const source = audioCtx.createBufferSource();
+            source.buffer = soundBuffers[key];
+            source.connect(audioCtx.destination);
+            source.start(0); // 0 = immédiat
+        }
+
+        // --- 4. ACTIVATION DU SYSTÈME (ANTI-BUZZ + DÉVERROUILLAGE) ---
+        function unlockAudioSystem() {
+            // Reprise du contexte audio (nécessaire pour les navigateurs modernes)
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            // --- L'OSCILLATEUR ANTI-BUZZ (Ta demande initiale) ---
             const oscillator = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
 
-            oscillator.type = 'sine'; 
-            
-            // On change la fréquence : 
-            // Au lieu de 20Hz (basse), on met 19000Hz (très aigu, quasi inaudible pour l'humain)
-            oscillator.frequency.value = 19000; 
-            
-            // On baisse le volume DRASTIQUEMENT
-            // C'était 0.001, on passe à 0.00001 (100x moins fort)
-            gainNode.gain.value = 0.00001; 
+            oscillator.type = 'sine';
+            oscillator.frequency.value = 19000; // 19kHz (Inaudible)
+            gainNode.gain.value = 0.00001;      // Volume infinitésimal
 
             oscillator.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             oscillator.start();
-            // ---------------------------
+            // ----------------------------------------------------
 
-            // Mise à jour de l'interface
-            document.getElementById('btn-init').innerText = "SYSTÈME ACTIF (SILENCIEUX) ✅";
-            document.getElementById('btn-init').classList.add('active');
-            document.getElementById('grid').classList.add('ready');
-            document.getElementById('status-text').innerText = "Signal inaudible actif.";
+            // Interface
+            const btnInit = document.getElementById('btn-init');
+            btnInit.innerHTML = "SYSTÈME ACTIF ✅";
+            btnInit.classList.add('active');
+            
+            // On débloque la grille
+            document.getElementById('grid').classList.remove('locked');
+            document.getElementById('status-text').innerText = "Prêt à faire du bruit.";
         }
 
-        function playSound(url) {
-            if (!audioCtx) return;
-            const audio = new Audio(url);
-            audio.play().catch(e => console.error("Erreur : " + e));
-        }
+        // Lancer le chargement des sons dès que la page s'ouvre
+        window.addEventListener('load', initSoundLoader);
+
     </script>
-
 </body>
 </html>
+
