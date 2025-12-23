@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soundbox Anti-Buzz</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 { margin-bottom: 30px; }
+
+        /* Le bouton principal pour activer l'audio */
+        #btn-init {
+            background-color: #e74c3c;
+            color: white;
+            padding: 20px 40px;
+            font-size: 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            transition: transform 0.1s;
+            margin-bottom: 50px;
+        }
+        #btn-init:active { transform: scale(0.95); }
+        #btn-init.active { background-color: #27ae60; pointer-events: none; }
+
+        /* Les boutons de sons */
+        .sound-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            opacity: 0.5; /* Grisé tant que pas activé */
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .sound-grid.ready {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .sound-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .sound-btn:active { background-color: #2980b9; transform: translate(0, 2px); }
+
+        .status { margin-top: 20px; color: #7f8c8d; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <h1>🔊 Soundbox Anti-Buzz</h1>
+
+    <button id="btn-init" onclick="initAudio()">CLIQUER ICI POUR ACTIVER<br><small>(Lance le silence)</small></button>
+
+    <div class="sound-grid" id="grid">
+        <button class="sound-btn" onclick="playSound('https://www.soundjay.com/buttons/sounds/button-3.mp3')">Bruitage 1</button>
+        <button class="sound-btn" onclick="playSound('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3')">Bruitage 2</button>
+        <button class="sound-btn" onclick="playSound('TON_FICHIER_LOCAL.mp3')">Mon MP3</button>
+        <button class="sound-btn" onclick="playSound('TON_AUTRE_FICHIER.mp3')">Autre MP3</button>
+    </div>
+
+    <div class="status" id="status-text">Système en attente...</div>
+
+    <script>
+        let audioCtx;
+        
+        function initAudio() {
+            // Création du contexte Audio
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+
+            // --- LE SECRET ANTI-BUZZ ---
+            // On crée un oscillateur qui génère un son continu
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            oscillator.type = 'sine'; 
+            oscillator.frequency.value = 20; // 20Hz (très grave, limite de l'audible)
+            
+            // Volume extrêmement bas : suffisant pour garder le câble "allumé"
+            // mais invisible pour l'oreille humaine
+            gainNode.gain.value = 0.001; 
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.start();
+            // ---------------------------
+
+            // Mise à jour de l'interface
+            document.getElementById('btn-init').innerText = "SYSTÈME ACTIF ✅";
+            document.getElementById('btn-init').classList.add('active');
+            document.getElementById('grid').classList.add('ready');
+            document.getElementById('status-text').innerText = "Signal de maintien actif. Prêt à jouer.";
+        }
+
+        function playSound(url) {
+            if (!audioCtx) return;
+
+            // Chargement et lecture simple d'un son
+            const audio = new Audio(url);
+            audio.play().catch(e => console.error("Erreur de lecture : " + e));
+        }
+    </script>
+</body>
+</html>
